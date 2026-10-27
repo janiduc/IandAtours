@@ -1,7 +1,9 @@
 import WhatsAppButton from "../components/WhatsAppButton";
 import { formatPhone, WHATSAPP_NUMBERS, whatsappLink } from "../contact";
+import { usePageMeta } from "../usePageMeta";
 
 export default function Contact() {
+  usePageMeta("About & contact", "Contact I&A Tours on WhatsApp to plan a private tour in Sri Lanka.");
   return (
     <section className="container section narrow">
       <h1>About I&amp;A Tours</h1>

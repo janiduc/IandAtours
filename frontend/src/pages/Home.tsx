@@ -3,6 +3,7 @@ import { api } from "../api";
 import TourCard from "../components/TourCard";
 import WhatsAppButton from "../components/WhatsAppButton";
 import { useFetch } from "../useFetch";
+import { usePageMeta } from "../usePageMeta";
 
 const REASONS = [
   { title: "Private driver-guides", text: "Licensed, English-speaking guides who know every route on the island." },
@@ -11,6 +12,7 @@ const REASONS = [
 ];
 
 export default function Home() {
+  usePageMeta("I&A Tours");
   const { data: tours, error } = useFetch(() => api.tours({ featured: "true" }), []);
 
   return (

@@ -5,6 +5,7 @@ import CurrencyToggle from "../components/CurrencyToggle";
 import { formatPrice, useCurrency } from "../currency";
 import { redirectToCheckout } from "../payhere";
 import { useFetch } from "../useFetch";
+import { usePageMeta } from "../usePageMeta";
 
 function isoDate(daysFromToday: number) {
   const d = new Date();
@@ -19,6 +20,7 @@ export default function Book() {
   const { data: tour, error: loadError } = useFetch(() => api.tour(slug), [slug]);
   const { data: options } = useFetch(() => api.bookingOptions(), []);
   const onlinePayment = options?.online_payment ?? false;
+  usePageMeta(tour ? `Book ${tour.title}` : undefined);
   const [travellers, setTravellers] = useState(2);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -67,7 +69,7 @@ export default function Book() {
           <legend>I am a</legend>
           <CurrencyToggle />
           <p className="muted small">
-            Sri Lankan residents pay in LKR, visitors from abroad in USD. We may ask for ID when you travel.
+            Sri Lankan residents pay in LKR, visitors from abroad in USD. Our team confirms the price when we contact you.
           </p>
         </fieldset>
         <label>
@@ -128,7 +130,8 @@ export default function Book() {
         <p className="muted small">
           {onlinePayment
             ? "You'll pay securely on PayHere's payment page. We never see or store your card details."
-            : "We'll confirm availability and send payment details within 24 hours."}
+            : "We'll confirm availability and send payment details within 24 hours."}{" "}
+          By continuing you agree to our <Link to="/privacy">privacy policy</Link>.
         </p>
       </form>
     </section>

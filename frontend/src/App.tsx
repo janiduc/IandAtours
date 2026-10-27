@@ -5,6 +5,7 @@ import Bookings from "./admin/Bookings";
 import { GuidesAdmin, ToursAdmin, VehiclesAdmin } from "./admin/Catalog";
 import Login from "./admin/Login";
 import Staff from "./admin/Staff";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Layout from "./components/Layout";
 import Book from "./pages/Book";
 import BookingStatusPage from "./pages/BookingStatusPage";
@@ -13,10 +14,19 @@ import Fleet from "./pages/Fleet";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Plan from "./pages/Plan";
+import Privacy from "./pages/Privacy";
 import TourDetail from "./pages/TourDetail";
 import Tours from "./pages/Tours";
 
 export default function App() {
+  return (
+    <ErrorBoundary>
+      <AppRoutes />
+    </ErrorBoundary>
+  );
+}
+
+function AppRoutes() {
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -28,6 +38,7 @@ export default function App() {
         <Route path="plan" element={<Plan />} />
         <Route path="fleet" element={<Fleet />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="privacy" element={<Privacy />} />
         <Route path="*" element={<NotFound />} />
       </Route>
       <Route

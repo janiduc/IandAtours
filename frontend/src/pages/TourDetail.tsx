@@ -4,10 +4,12 @@ import Price from "../components/Price";
 import SmartImage from "../components/SmartImage";
 import WhatsAppButton from "../components/WhatsAppButton";
 import { useFetch } from "../useFetch";
+import { usePageMeta } from "../usePageMeta";
 
 export default function TourDetail() {
   const { slug = "" } = useParams();
   const { data: tour, error, loading } = useFetch(() => api.tour(slug), [slug]);
+  usePageMeta(tour?.title, tour?.summary);
 
   if (loading) return <p className="container section muted">Loading…</p>;
   if (error || !tour) {
