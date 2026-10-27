@@ -63,6 +63,28 @@ values in `backend/.env`:
 A booking is marked **Paid** only after PayHere's signed notification is verified and the amount and
 currency match the booking. Card details never reach this server.
 
+## AI assistant (free models)
+
+Two agents share one small tool-calling runtime (`backend/app/agents/`):
+
+- **Trip planner** (`/plan` on the website): suggests real I&A Tours packages, fleet options and prices.
+  It can only read published tours, vehicles and prices: it has no access to bookings or customers.
+- **Staff assistant** (inside each booking in the admin area): drafts a reply to the customer and
+  suggests a free guide and a vehicle that fits the group. Its tools only see the booking that's open.
+  Nothing is sent or saved until a staff member edits the draft and clicks to send or save.
+
+It works with any OpenAI-compatible chat API, so switching provider is a config change. Free choices:
+
+| Option | When | Setup |
+| --- | --- | --- |
+| [Ollama](https://ollama.com) on your computer | Development | `ollama pull qwen2.5:7b`, then `LLM_MODEL=qwen2.5:7b` |
+| [Groq](https://console.groq.com) free tier | Live site | Create an API key, `LLM_BASE_URL=https://api.groq.com/openai/v1`, `LLM_MODEL=llama-3.3-70b-versatile` |
+| [Google Gemini](https://aistudio.google.com) free tier | Live site | Create an API key, `LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai`, `LLM_MODEL=gemini-2.5-flash` |
+
+Pick a model that supports tool calling. Free tiers have daily limits, and some free plans may use
+prompts to train models, which is one reason the trip planner never sees customer data. With
+`LLM_MODEL` empty, the "Plan my trip" link and the admin assistant are hidden.
+
 ## Adding your photos and logo
 
 Put files in `frontend/public/images/`. The site shows a styled placeholder until each file exists.

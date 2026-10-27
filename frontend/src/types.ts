@@ -123,3 +123,18 @@ export interface StaffUser {
   role: Role;
   active: boolean;
 }
+
+export interface ChatTurn {
+  role: "user" | "assistant";
+  content: string;
+}
+
+export interface PlanReply {
+  reply: string;
+  tours: { slug: string; title: string; duration_days: number }[];
+}
+
+export interface AssistReply {
+  draft_reply: string;
+  proposal: { guide_id: number | null; vehicle_id: number | null; reason: string } | null;
+}

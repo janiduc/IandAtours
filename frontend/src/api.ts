@@ -1,5 +1,8 @@
 import type {
   AdminBooking,
+  AssistReply,
+  ChatTurn,
+  PlanReply,
   AdminTour,
   AdminVehicle,
   BookingCreated,
@@ -58,6 +61,8 @@ export const api = {
   tour: (slug: string) => get<Tour>(`/api/tours/${encodeURIComponent(slug)}`),
   vehicles: () => get<Vehicle[]>("/api/vehicles"),
   createBooking: (body: BookingRequest) => request<BookingCreated>("POST", "/api/bookings", body),
+  assistantOptions: () => get<{ enabled: boolean }>("/api/assistant/options"),
+  plan: (messages: ChatTurn[]) => request<PlanReply>("POST", "/api/assistant/plan", { messages }),
   bookingOptions: () => get<{ online_payment: boolean }>("/api/bookings/options"),
   booking: (reference: string) => get<BookingPublic>(`/api/bookings/${encodeURIComponent(reference)}`),
 };
@@ -83,6 +88,8 @@ export const admin = {
   bookings: (status?: string) => get<AdminBooking[]>(`/api/admin/bookings${status ? `?booking_status=${status}` : ""}`),
   updateBooking: (id: number, body: Partial<Pick<AdminBooking, "status" | "guide_id" | "vehicle_id" | "staff_notes">>) =>
     request<AdminBooking>("PATCH", `/api/admin/bookings/${id}`, body),
+  assist: (bookingId: number, instruction: string) =>
+    request<AssistReply>("POST", `/api/admin/bookings/${bookingId}/assist`, { instruction }),
   users: () => get<StaffUser[]>("/api/admin/users"),
   createUser: (body: { email: string; name: string; password: string; role: string }) =>
     request<StaffUser>("POST", "/api/admin/users", body),

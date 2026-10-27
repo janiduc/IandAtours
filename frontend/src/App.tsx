@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 import Fleet from "./pages/Fleet";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Plan from "./pages/Plan";
 import TourDetail from "./pages/TourDetail";
 import Tours from "./pages/Tours";
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="tours/:slug" element={<TourDetail />} />
         <Route path="book/:slug" element={<Book />} />
         <Route path="booking/:reference" element={<BookingStatusPage />} />
+        <Route path="plan" element={<Plan />} />
         <Route path="fleet" element={<Fleet />} />
         <Route path="contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />

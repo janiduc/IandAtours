@@ -30,6 +30,19 @@ class Settings(BaseSettings):
     payhere_merchant_secret: str = ""
     payhere_sandbox: bool = True
 
+    # AI assistant. Any OpenAI-compatible chat API works; leave LLM_MODEL empty to turn the assistant off.
+    #   Ollama (free, local):  LLM_BASE_URL=http://localhost:11434/v1  LLM_MODEL=qwen2.5:7b
+    #   Groq (free tier):      LLM_BASE_URL=https://api.groq.com/openai/v1  LLM_MODEL=llama-3.3-70b-versatile
+    #   Gemini (free tier):    LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai  LLM_MODEL=gemini-2.5-flash
+    llm_base_url: str = "http://localhost:11434/v1"
+    llm_api_key: str = ""
+    llm_model: str = ""
+    llm_timeout_seconds: float = 60
+
+    @property
+    def assistant_enabled(self) -> bool:
+        return bool(self.llm_model)
+
     @property
     def is_production(self) -> bool:
         return self.environment == "production"
