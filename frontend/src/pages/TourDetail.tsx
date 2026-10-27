@@ -42,7 +42,9 @@ export default function TourDetail() {
         <aside className="booking-box">
           <Price tour={tour} />
           <p className="muted">Includes a private air-conditioned vehicle and driver-guide.</p>
-          {/* Online booking and payment arrive in step 2; WhatsApp handles enquiries until then. */}
+          <Link to={`/book/${tour.slug}`} className="btn btn-primary">
+            Book now
+          </Link>
           <WhatsAppButton
             label="Enquire on WhatsApp"
             message={`Hi I&A Tours, I'm interested in the "${tour.title}" tour. Could you share more details?`}

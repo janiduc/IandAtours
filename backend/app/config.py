@@ -1,16 +1,51 @@
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+DEV_SECRET_KEY = "dev-only-insecure-secret-key-change-me"
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
+    # "production" turns off the interactive API docs and requires real secrets.
+    environment: str = "development"
     # Defaults to a local SQLite file so the API runs with zero setup.
     # Use PostgreSQL (see docker-compose.yml) for anything shared or deployed.
-    # "production" turns off the interactive API docs.
-    environment: str = "development"
     database_url: str = "sqlite:///./iandatours.db"
     cors_origins: list[str] = ["http://localhost:5173"]
+    # Apply database migrations when the API starts. Turn off if you run "alembic upgrade head" in deploys.
+    auto_migrate: bool = True
     seed_on_startup: bool = True
+
+    # Signs staff session tokens. Generate with: python -c "import secrets; print(secrets.token_urlsafe(48))"
+    secret_key: str = DEV_SECRET_KEY
+    session_hours: int = 8
+
+    # Public URLs used to build payment return and notification links.
+    site_url: str = "http://localhost:5173"
+    api_url: str = "http://localhost:8000"
+
+    # PayHere (https://www.payhere.lk). Leave the merchant ID empty to take bookings without online payment.
+    payhere_merchant_id: str = ""
+    payhere_merchant_secret: str = ""
+    payhere_sandbox: bool = True
+
+    @property
+    def is_production(self) -> bool:
+        return self.environment == "production"
+
+    @property
+    def payments_enabled(self) -> bool:
+        return bool(self.payhere_merchant_id and self.payhere_merchant_secret)
+
+    @model_validator(mode="after")
+    def require_real_secrets_in_production(self):
+        if self.is_production:
+            if self.secret_key == DEV_SECRET_KEY or len(self.secret_key) < 32:
+                raise ValueError("SECRET_KEY must be set to a random value of at least 32 characters in production")
+            if self.payhere_sandbox and self.payments_enabled:
+                raise ValueError("PAYHERE_SANDBOX must be false in production")
+        return self
 
 
 settings = Settings()

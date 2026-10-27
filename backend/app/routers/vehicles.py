@@ -11,4 +11,4 @@ router = APIRouter(prefix="/api/vehicles", tags=["vehicles"])
 
 @router.get("", response_model=list[VehicleOut])
 def list_vehicles(db: Session = Depends(get_db)):
-    return db.scalars(select(Vehicle).order_by(Vehicle.seats)).all()
+    return db.scalars(select(Vehicle).where(Vehicle.active).order_by(Vehicle.seats)).all()

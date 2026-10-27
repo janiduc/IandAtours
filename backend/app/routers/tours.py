@@ -16,7 +16,7 @@ def list_tours(
     max_days: int | None = None,
     db: Session = Depends(get_db),
 ):
-    query = select(Tour).order_by(Tour.featured.desc(), Tour.duration_days)
+    query = select(Tour).where(Tour.published).order_by(Tour.featured.desc(), Tour.duration_days)
     if region:
         query = query.where(Tour.region == region)
     if featured is not None:
@@ -28,7 +28,7 @@ def list_tours(
 
 @router.get("/{slug}", response_model=TourOut)
 def get_tour(slug: str, db: Session = Depends(get_db)):
-    tour = db.scalar(select(Tour).where(Tour.slug == slug))
+    tour = db.scalar(select(Tour).where(Tour.slug == slug, Tour.published))
     if tour is None:
         raise HTTPException(status_code=404, detail="Tour not found")
     return tour
