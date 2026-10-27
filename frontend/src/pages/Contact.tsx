@@ -1,0 +1,21 @@
+import WhatsAppButton from "../components/WhatsAppButton";
+import { WHATSAPP_NUMBER } from "../contact";
+
+export default function Contact() {
+  return (
+    <section className="container section narrow">
+      <h1>About I&amp;A Tours</h1>
+      <p>
+        I&amp;A Tours is a Sri Lankan tour agency offering private tours, round trips and vehicle hire across the
+        island. We plan trips for travellers from around the world and for local families, with experienced
+        driver-guides and a modern, air-conditioned fleet.
+      </p>
+      <h2>Get in touch</h2>
+      <p>The fastest way to reach us is WhatsApp. Tell us your dates, group size and what you'd like to see.</p>
+      <p>
+        <WhatsAppButton />
+      </p>
+      <p className="muted">WhatsApp: +{WHATSAPP_NUMBER}</p>
+    </section>
+  );
+}
