@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -40,6 +40,7 @@ function renderAt(path: string) {
 }
 
 afterEach(() => {
+  cleanup();
   vi.unstubAllGlobals();
   localStorage.clear();
 });

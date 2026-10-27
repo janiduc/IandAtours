@@ -58,7 +58,7 @@ h1, h2, h3 { line-height: 1.2; }
 .hero { background: linear-gradient(135deg, var(--green-dark), var(--green) 60%, #2f8f6a); color: #fff; padding: 80px 0; }
 .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 0 0 16px; }
 .hero p { max-width: 620px; font-size: 1.15rem; opacity: 0.95; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px; }
 
 /* Buttons */
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-weight: 600; text-decoration: none; }
@@ -100,3 +100,55 @@ h1, h2, h3 { line-height: 1.2; }
 
 .site-footer { background: var(--green-dark); color: #dfeee7; padding: 24px 0; margin-top: 48px; font-size: 0.9rem; }
 .contact-numbers { list-style: none; padding: 0; color: var(--muted); }
+
+/* Forms */
+.small { font-size: 0.85rem; }
+.form { display: flex; flex-direction: column; gap: 16px; }
+.form label { display: flex; flex-direction: column; gap: 4px; font-weight: 500; flex: 1; min-width: 0; }
+.form label.checkbox { flex-direction: row; align-items: center; gap: 8px; }
+.form input:not([type="checkbox"]), .form select, .form textarea, label.inline select {
+  font: inherit; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: #fff; width: 100%;
+}
+.form input:focus, .form select:focus, .form textarea:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+.form fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.form legend { font-weight: 500; margin-bottom: 8px; }
+.form-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.form-row > label { min-width: 180px; }
+.form-actions { display: flex; gap: 12px; align-items: center; }
+.form button[disabled] { opacity: 0.6; cursor: wait; }
+.btn { border: 0; font: inherit; font-weight: 600; cursor: pointer; }
+.btn-secondary { background: var(--bg-alt); color: var(--ink); }
+.total { display: flex; justify-content: space-between; align-items: baseline; padding: 16px; background: var(--bg-alt); border-radius: var(--radius); }
+.total strong { font-size: 1.25rem; }
+.notice { background: #fff6e5; border: 1px solid #f2d39b; padding: 12px 16px; border-radius: 8px; }
+.summary { display: grid; grid-template-columns: max-content 1fr; gap: 6px 24px; }
+.summary dt { color: var(--muted); }
+.summary dd { margin: 0; }
+.status-pill { display: inline-block; padding: 2px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; background: var(--bg-alt); color: var(--muted); white-space: nowrap; }
+.status-pill[data-status="paid"], .status-pill[data-status="confirmed"], .status-pill[data-status="completed"] { background: #dcf3e7; color: var(--green-dark); }
+.status-pill[data-status="pending_payment"], .status-pill[data-status="enquiry"] { background: #fff1d6; color: #8a5a00; }
+.status-pill[data-status="payment_failed"], .status-pill[data-status="cancelled"] { background: #fde4e1; color: #b42318; }
+.booking-box .btn { justify-content: center; }
+
+/* Admin */
+.admin-header { background: var(--green-dark); color: #fff; }
+.admin-header-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; min-height: 56px; padding-top: 8px; padding-bottom: 8px; }
+.admin-nav { display: flex; gap: 16px; flex-wrap: wrap; flex: 1; }
+.admin-nav a { color: #cfe5da; text-decoration: none; }
+.admin-nav a.active { color: #fff; font-weight: 600; }
+.admin-user { font-size: 0.9rem; color: #cfe5da; }
+.admin-user .link-button { color: #fff; }
+.link-button { background: none; border: 0; padding: 0; font: inherit; color: var(--green); cursor: pointer; text-decoration: underline; }
+.login { max-width: 420px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+.table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.table th, .table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.table th { background: var(--bg-alt); font-weight: 600; }
+.table tr.clickable { cursor: pointer; }
+.table tr.clickable:hover { background: #f8fbf9; }
+.booking-detail { display: flex; flex-direction: column; gap: 16px; padding: 8px 0; }
+.booking-detail label { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 180px; }
+.booking-detail select, .booking-detail textarea { font: inherit; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; }
+.editor { max-width: 720px; margin-top: 32px; }
+label.inline { display: flex; align-items: center; gap: 8px; }
+.form .currency-toggle { align-self: flex-start; }

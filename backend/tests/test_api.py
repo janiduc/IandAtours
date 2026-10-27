@@ -30,8 +30,8 @@ def test_list_vehicles_sorted_by_seats(client):
     assert seats == sorted(seats) and len(seats) == 5
 
 
-def test_seed_is_idempotent(client):
-    from app.main import SessionLocal  # patched test session
+def test_seed_is_idempotent(client, session_factory):
+    SessionLocal = session_factory
     from app.seed import seed
 
     with SessionLocal() as session:

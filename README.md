@@ -26,7 +26,17 @@ uvicorn app.main:app --reload
 pytest
 ```
 
-Sample tours and vehicles are added automatically when the tables are empty.
+The API applies database migrations (Alembic) when it starts, and adds sample tours and vehicles
+when those tables are empty. After changing `app/models.py`, create a migration with
+`alembic revision --autogenerate -m "describe the change"` and review it before committing.
+
+**First admin account** (then add other staff from the admin area):
+
+```bash
+python -m app.cli create-admin --email you@example.com --name "Your Name"
+```
+
+Sign in at http://localhost:5173/admin.
 
 **Frontend** (http://localhost:5173, proxies `/api` to the backend):
 
@@ -37,6 +47,21 @@ npm install
 npm run dev
 npm test
 ```
+
+## Payments (PayHere)
+
+Bookings work without a payment gateway: they arrive in the admin area as "Enquiry received" and staff
+follow up. To take card payments online, create a PayHere merchant account and set the `PAYHERE_*`
+values in `backend/.env`:
+
+1. Start with a sandbox account at https://sandbox.payhere.lk and keep `PAYHERE_SANDBOX=true`.
+2. In PayHere, add your website domain and copy the merchant ID and merchant secret.
+3. `API_URL` must be reachable from the internet so PayHere can send payment notifications to
+   `/api/payments/payhere/notify` (for local testing, use a tunnel such as ngrok).
+4. For go-live, switch to the live merchant account and set `PAYHERE_SANDBOX=false`.
+
+A booking is marked **Paid** only after PayHere's signed notification is verified and the amount and
+currency match the booking. Card details never reach this server.
 
 ## Adding your photos and logo
 
