@@ -27,7 +27,7 @@ def test_unknown_tour_returns_404(client):
 
 def test_list_vehicles_sorted_by_seats(client):
     seats = [v["seats"] for v in client.get("/api/vehicles").json()]
-    assert seats == sorted(seats) and len(seats) == 4
+    assert seats == sorted(seats) and len(seats) == 5
 
 
 def test_seed_is_idempotent(client):

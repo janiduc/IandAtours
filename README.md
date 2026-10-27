@@ -42,7 +42,7 @@ npm test
 Put files in `frontend/public/images/`. The site shows a styled placeholder until each file exists.
 
 - Logo: `logo.png`
-- Fleet: `fleet/car.jpg`, `fleet/suv.jpg`, `fleet/van.jpg`, `fleet/coach.jpg`
+- Fleet photos are in `fleet/` (Allion, three HiAce vans, Coaster)
 - Tours: `tours/cultural-triangle.jpg`, `tours/hill-country.jpg`, `tours/yala.jpg`,
   `tours/south-coast.jpg`, `tours/colombo.jpg`, `tours/grand-tour.jpg`
 
