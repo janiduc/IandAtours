@@ -1,8 +1,10 @@
 import { Fragment, useState } from "react";
-import { admin } from "../api";
+import { admin, api } from "../api";
 import { STATUS_LABELS } from "../bookingStatus";
 import { formatPrice } from "../currency";
 import type { AdminBooking, AdminVehicle, BookingStatus, Guide } from "../types";
+import { useFetch } from "../useFetch";
+import AssistantPanel from "./AssistantPanel";
 import { useRecords } from "./useRecords";
 
 const STATUSES = Object.keys(STATUS_LABELS) as BookingStatus[];
@@ -11,11 +13,13 @@ function BookingDetail({
   booking,
   guides,
   vehicles,
+  assistantEnabled,
   onSaved,
 }: {
   booking: AdminBooking;
   guides: Guide[];
   vehicles: AdminVehicle[];
+  assistantEnabled: boolean;
   onSaved: () => void;
 }) {
   const [status, setStatus] = useState(booking.status);
@@ -112,6 +116,18 @@ function BookingDetail({
         </button>
         {message && <span className="muted">{message}</span>}
       </div>
+      {assistantEnabled && (
+        <AssistantPanel
+          booking={booking}
+          guides={guides}
+          vehicles={vehicles}
+          onUseSuggestion={(guide, vehicle) => {
+            if (guide !== null) setGuideId(guide);
+            if (vehicle !== null) setVehicleId(vehicle);
+            setMessage("Suggestion filled in. Check it, then save.");
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -122,6 +138,7 @@ export default function Bookings() {
   const { records: bookings, error, reload } = useRecords(() => admin.bookings(filter || undefined), [filter]);
   const { records: guides } = useRecords(admin.guides);
   const { records: vehicles } = useRecords(admin.vehicles);
+  const { data: assistant } = useFetch(() => api.assistantOptions(), []);
 
   return (
     <>
@@ -177,7 +194,13 @@ export default function Bookings() {
                 {openId === b.id && guides && vehicles && (
                   <tr>
                     <td colSpan={7}>
-                      <BookingDetail booking={b} guides={guides} vehicles={vehicles} onSaved={reload} />
+                      <BookingDetail
+                        booking={b}
+                        guides={guides}
+                        vehicles={vehicles}
+                        assistantEnabled={Boolean(assistant?.enabled)}
+                        onSaved={reload}
+                      />
                     </td>
                   </tr>
                 )}

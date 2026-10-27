@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.db import SessionLocal
 from app.migrate import upgrade_to_head
-from app.routers import admin, auth, bookings, payments, tours, vehicles
+from app.routers import admin, assistant, auth, bookings, payments, tours, vehicles
 from app.seed import seed
 
 
@@ -44,14 +44,14 @@ async def security_headers(request: Request, call_next):
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    if request.url.path.startswith(("/api/admin", "/api/auth", "/api/bookings")):
+    if request.url.path.startswith(("/api/admin", "/api/auth", "/api/bookings", "/api/assistant")):
         response.headers["Cache-Control"] = "no-store"
     if IS_PRODUCTION:
         response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     return response
 
 
-for router in (tours, vehicles, bookings, payments, auth, admin):
+for router in (tours, vehicles, bookings, payments, auth, admin, assistant):
     app.include_router(router.router)
 
 

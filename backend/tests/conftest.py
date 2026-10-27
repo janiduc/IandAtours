@@ -8,6 +8,7 @@ from app.config import settings
 from app.db import Base, get_db
 from app.main import app
 from app.models import Role, User
+from app.routers.assistant import planner_limiter
 from app.security import booking_limiter, hash_password, login_limiter
 from app.seed import seed
 
@@ -34,8 +35,10 @@ def session_factory(monkeypatch):
     monkeypatch.setattr(settings, "seed_on_startup", False)
     monkeypatch.setattr(settings, "payhere_merchant_id", "")
     monkeypatch.setattr(settings, "payhere_merchant_secret", "")
+    monkeypatch.setattr(settings, "llm_model", "")
     login_limiter.reset()
     booking_limiter.reset()
+    planner_limiter.reset()
     return TestSession
 
 

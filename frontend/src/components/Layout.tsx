@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { api } from "../api";
+import { useFetch } from "../useFetch";
 import CurrencyToggle from "./CurrencyToggle";
 import Logo from "./Logo";
 import WhatsAppButton from "./WhatsAppButton";
@@ -7,12 +9,15 @@ import WhatsAppButton from "./WhatsAppButton";
 const NAV = [
   { to: "/", label: "Home", end: true },
   { to: "/tours", label: "Tours" },
+  { to: "/plan", label: "Plan my trip", assistant: true },
   { to: "/fleet", label: "Our Fleet" },
   { to: "/contact", label: "About & Contact" },
 ];
 
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { data: assistant } = useFetch(() => api.assistantOptions(), []);
+  const nav = NAV.filter((item) => !item.assistant || assistant?.enabled);
   return (
     <>
       <header className="site-header">
@@ -30,7 +35,7 @@ export default function Layout() {
             Menu
           </button>
           <nav id="main-nav" className={menuOpen ? "nav open" : "nav"}>
-            {NAV.map((item) => (
+            {nav.map((item) => (
               <NavLink key={item.to} to={item.to} end={item.end} onClick={() => setMenuOpen(false)}>
                 {item.label}
               </NavLink>
