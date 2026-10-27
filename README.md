@@ -31,7 +31,7 @@ Sample tours and vehicles are added automatically when the tables are empty.
 
 ```bash
 cd frontend
-cp .env.example .env   # set VITE_WHATSAPP_NUMBER
+cp .env.example .env   # optional: change VITE_WHATSAPP_NUMBERS
 npm install
 npm run dev
 npm test

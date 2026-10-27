@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { whatsappLink } from "./contact";
+import { formatPhone, WHATSAPP_NUMBER, whatsappLink } from "./contact";
 import { CurrencyProvider, formatPrice } from "./currency";
 import type { Tour } from "./types";
 
@@ -52,6 +52,11 @@ describe("helpers", () => {
 
   it("builds a WhatsApp link with an encoded message", () => {
     expect(whatsappLink("Hi there", "+94 77 123 4567")).toBe("https://wa.me/94771234567?text=Hi%20there");
+    expect(whatsappLink("Hi")).toBe(`https://wa.me/${WHATSAPP_NUMBER}?text=Hi`);
+  });
+
+  it("formats Sri Lankan numbers for display", () => {
+    expect(formatPhone("94773974668")).toBe("+94 77 397 4668");
   });
 });
 

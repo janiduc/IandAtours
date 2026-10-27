@@ -1,5 +1,5 @@
 import WhatsAppButton from "../components/WhatsAppButton";
-import { WHATSAPP_NUMBER } from "../contact";
+import { formatPhone, WHATSAPP_NUMBERS, whatsappLink } from "../contact";
 
 export default function Contact() {
   return (
@@ -15,7 +15,16 @@ export default function Contact() {
       <p>
         <WhatsAppButton />
       </p>
-      <p className="muted">WhatsApp: +{WHATSAPP_NUMBER}</p>
+      <ul className="contact-numbers">
+        {WHATSAPP_NUMBERS.map((number) => (
+          <li key={number}>
+            WhatsApp / phone:{" "}
+            <a href={whatsappLink("Hi I&A Tours, I'd like to know more about your tours.", number)} target="_blank" rel="noopener noreferrer">
+              {formatPhone(number)}
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

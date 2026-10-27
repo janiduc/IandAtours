@@ -147,7 +147,7 @@ VEHICLES = [
     {
         "name": "Toyota Coaster",
         "category": "Coach",
-        "seats": 25,
+        "seats": 26,
         "air_conditioned": True,
         "description": "Mini coach for larger groups, school trips and corporate outings.",
         "image_url": "/images/fleet/coach.jpg",
