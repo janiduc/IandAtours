@@ -1,7 +1,8 @@
 # I&A Tours
 
 Website for I&A Tours, a Sri Lankan tour agency serving both foreign visitors and local travellers.
-See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
+See [docs/PLAN.md](docs/PLAN.md) for the roadmap, [CONTRIBUTING.md](CONTRIBUTING.md) for the branching
+strategy and [SECURITY.md](SECURITY.md) for security rules.
 
 - `frontend/`: React + TypeScript (Vite)
 - `backend/`: Python FastAPI + SQLAlchemy, PostgreSQL

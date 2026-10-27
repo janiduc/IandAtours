@@ -6,6 +6,8 @@ class Settings(BaseSettings):
 
     # Defaults to a local SQLite file so the API runs with zero setup.
     # Use PostgreSQL (see docker-compose.yml) for anything shared or deployed.
+    # "production" turns off the interactive API docs.
+    environment: str = "development"
     database_url: str = "sqlite:///./iandatours.db"
     cors_origins: list[str] = ["http://localhost:5173"]
     seed_on_startup: bool = True

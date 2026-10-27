@@ -37,3 +37,9 @@ def test_seed_is_idempotent(client):
     with SessionLocal() as session:
         seed(session)
     assert len(client.get("/api/tours").json()) == 6
+
+
+def test_security_headers(client):
+    headers = client.get("/api/health").headers
+    assert headers["X-Content-Type-Options"] == "nosniff"
+    assert headers["X-Frame-Options"] == "DENY"
