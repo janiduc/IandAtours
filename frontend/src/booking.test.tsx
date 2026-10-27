@@ -29,7 +29,7 @@ function renderAt(path: string, handler: Handler) {
   });
   vi.stubGlobal("fetch", fetchMock);
   render(
-    <MemoryRouter initialEntries={[path]} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <MemoryRouter initialEntries={[path]}>
       <CurrencyProvider>
         <App />
       </CurrencyProvider>
