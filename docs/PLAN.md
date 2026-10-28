@@ -7,4 +7,5 @@
 3. ✅ **Multi-agent AI assistant (free models).** A trip-planner agent for travellers and a staff agent that
    drafts replies and helps manage bookings, with staff approval. Model-agnostic: Ollama with open models
    (Llama, Qwen, Gemma) in development, a free-tier hosted API such as Groq or Gemini in production.
-4. **Polish and launch.** Mobile polish, SEO and deployment.
+4. ✅ **Polish and launch.** SEO, privacy policy, mobile checks, and a Render deployment setup.
+   Going live follows [DEPLOY.md](DEPLOY.md).

@@ -155,3 +155,14 @@ def test_production_requires_real_secret(monkeypatch):
 def test_checkout_url_switches_to_live(monkeypatch):
     monkeypatch.setattr(settings, "payhere_sandbox", False)
     assert payhere.checkout_url() == "https://www.payhere.lk/pay/checkout"
+
+
+@pytest.mark.parametrize(
+    "given",
+    ["postgres://u:p@db:5432/x", "postgresql://u:p@db:5432/x", "postgresql+psycopg://u:p@db:5432/x"],
+)
+def test_database_url_uses_psycopg(monkeypatch, given):
+    from app.config import Settings
+
+    monkeypatch.setenv("DATABASE_URL", given)
+    assert Settings().database_url == "postgresql+psycopg://u:p@db:5432/x"

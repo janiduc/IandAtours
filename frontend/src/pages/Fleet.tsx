@@ -2,8 +2,10 @@ import { api } from "../api";
 import SmartImage from "../components/SmartImage";
 import WhatsAppButton from "../components/WhatsAppButton";
 import { useFetch } from "../useFetch";
+import { usePageMeta } from "../usePageMeta";
 
 export default function Fleet() {
+  usePageMeta("Our fleet", "Air-conditioned cars, vans and coaches with experienced drivers for tours and transfers across Sri Lanka.");
   const { data: vehicles, error, loading } = useFetch(() => api.vehicles(), []);
 
   return (

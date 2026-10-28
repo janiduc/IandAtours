@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { api } from "../api";
 import TourCard from "../components/TourCard";
 import { useFetch } from "../useFetch";
+import { usePageMeta } from "../usePageMeta";
 
 const DURATIONS = [
   { value: "", label: "Any length" },
@@ -12,6 +13,7 @@ const DURATIONS = [
 ];
 
 export default function Tours() {
+  usePageMeta("Tour packages", "Private Sri Lanka tour packages: Sigiriya and the Cultural Triangle, Kandy and Ella, Yala safaris, Galle and the south coast.");
   const [params, setParams] = useSearchParams();
   const region = params.get("region") ?? "";
   const maxDays = params.get("max_days") ?? "";

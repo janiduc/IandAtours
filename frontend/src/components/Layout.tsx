@@ -52,6 +52,10 @@ export default function Layout() {
       <footer className="site-footer">
         <div className="container">
           <p>© {new Date().getFullYear()} I&amp;A Tours · Private tours and vehicle hire across Sri Lanka</p>
+          <nav className="footer-links" aria-label="Footer">
+            <NavLink to="/contact">Contact</NavLink>
+            <NavLink to="/privacy">Privacy policy</NavLink>
+          </nav>
         </div>
       </footer>
       <WhatsAppButton floating />
