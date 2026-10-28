@@ -174,3 +174,11 @@ label.inline { display: flex; align-items: center; gap: 8px; }
 .assistant-panel input, .assistant-panel textarea { font: inherit; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; width: 100%; }
 .assistant-panel label { display: flex; flex-direction: column; gap: 4px; }
 .suggestion { margin: 0; padding: 10px 14px; background: #eef7f2; border-radius: 8px; }
+
+/* Footer and long-form pages */
+.site-footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: center; }
+.site-footer p { margin: 0; }
+.footer-links { display: flex; gap: 16px; }
+.footer-links a { color: #dfeee7; }
+.prose h2 { margin-top: 32px; }
+.prose li { margin-bottom: 6px; }

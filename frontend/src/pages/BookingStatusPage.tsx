@@ -4,6 +4,7 @@ import { STATUS_LABELS } from "../bookingStatus";
 import WhatsAppButton from "../components/WhatsAppButton";
 import { formatPrice } from "../currency";
 import { useFetch } from "../useFetch";
+import { usePageMeta } from "../usePageMeta";
 
 const MESSAGES: Partial<Record<string, string>> = {
   pending_payment:
@@ -19,6 +20,7 @@ export default function BookingStatusPage() {
   const { reference = "" } = useParams();
   const [params] = useSearchParams();
   const { data: booking, error } = useFetch(() => api.booking(reference), [reference]);
+  usePageMeta("Your booking");
 
   if (error) {
     return (

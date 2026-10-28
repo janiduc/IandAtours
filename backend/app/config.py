@@ -1,4 +1,4 @@
-from pydantic import model_validator
+from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 DEV_SECRET_KEY = "dev-only-insecure-secret-key-change-me"
@@ -38,6 +38,15 @@ class Settings(BaseSettings):
     llm_api_key: str = ""
     llm_model: str = ""
     llm_timeout_seconds: float = 60
+
+    @field_validator("database_url")
+    @classmethod
+    def use_psycopg_driver(cls, url: str) -> str:
+        # Hosts such as Render and Heroku give "postgres://..." URLs; SQLAlchemy needs the driver named.
+        for prefix in ("postgres://", "postgresql://"):
+            if url.startswith(prefix):
+                return "postgresql+psycopg://" + url.removeprefix(prefix)
+        return url
 
     @property
     def assistant_enabled(self) -> bool:

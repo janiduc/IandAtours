@@ -4,6 +4,7 @@ import { api } from "../api";
 import WhatsAppButton from "../components/WhatsAppButton";
 import type { ChatTurn, PlanReply } from "../types";
 import { useFetch } from "../useFetch";
+import { usePageMeta } from "../usePageMeta";
 
 const STARTERS = [
   "10 days in August, family of 4, we love wildlife and beaches",
@@ -14,6 +15,7 @@ const STARTERS = [
 type Entry = ChatTurn & { tours?: PlanReply["tours"] };
 
 export default function Plan() {
+  usePageMeta("Plan my trip", "Chat with our trip planner to find the right Sri Lanka tour for your dates, group and interests.");
   const { data: options } = useFetch(() => api.assistantOptions(), []);
   const [entries, setEntries] = useState<Entry[]>([]);
   const [draft, setDraft] = useState("");
